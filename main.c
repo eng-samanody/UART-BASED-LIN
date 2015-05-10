@@ -51,10 +51,10 @@ int main() /////////////////////////////////// MASTER //////////////////////////
 			motorStatus = UART_recieveByte(); // update led
 			switch(motorStatus)
 			{
-			case '0':
+			case 0:
 				CLEAR_BIT(PORTC,PC0);
 				break;
-			case '1':
+			case 1:
 				SET_BIT(PORTC,PC0);
 				break;
 			}

@@ -16,7 +16,7 @@ void UART_init(void)
 	SET_BIT(UCSRA,U2X);
 	
 	/* enable UART as transmitter and receiver */
-	SET_BIT(UCSRB,RXEN);
+	//SET_BIT(UCSRB,RXEN);
 	//SET_BIT(UCSRB,TXEN);
 	
 	/* 8-bit data, NO parity, one stop bit and asynch */
@@ -43,7 +43,9 @@ void UART_sendByte(const char a_DATA)
 char UART_recieveByte(void)
 {
 	/*RXC flag is set when the UART receive data so until this flag is set to one*/
+	SET_BIT(UCSRB,RXEN); /// test
 	while(!(UCSRA & (1<<RXC))){}
+	CLEAR_BIT(UCSRB,RXEN); /// test
     return UDR;		
 }
 

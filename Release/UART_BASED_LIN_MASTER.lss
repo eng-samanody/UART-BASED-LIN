@@ -3,15 +3,15 @@ UART_BASED_LIN_MASTER.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000002ac  00000000  00000000  00000074  2**1
+  0 .text         000002ae  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000000  00800060  000002ac  00000320  2**0
+  1 .data         00000000  00800060  000002ae  00000322  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .stab         000006cc  00000000  00000000  00000320  2**2
+  2 .stab         000006cc  00000000  00000000  00000324  2**2
                   CONTENTS, READONLY, DEBUGGING
-  3 .stabstr      00000054  00000000  00000000  000009ec  2**0
+  3 .stabstr      00000054  00000000  00000000  000009f0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  4 .comment      00000011  00000000  00000000  00000a40  2**0
+  4 .comment      00000011  00000000  00000000  00000a44  2**0
                   CONTENTS, READONLY
 
 Disassembly of section .text:
@@ -47,7 +47,7 @@ Disassembly of section .text:
   5c:	de bf       	out	0x3e, r29	; 62
   5e:	cd bf       	out	0x3d, r28	; 61
   60:	0e 94 d4 00 	call	0x1a8	; 0x1a8 <main>
-  64:	0c 94 54 01 	jmp	0x2a8	; 0x2a8 <_exit>
+  64:	0c 94 55 01 	jmp	0x2aa	; 0x2aa <_exit>
 
 00000068 <__bad_interrupt>:
   68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -235,7 +235,7 @@ Disassembly of section .text:
  1c8:	00 c0       	rjmp	.+0      	; 0x1ca <main+0x22>
  1ca:	00 00       	nop
  1cc:	81 e4       	ldi	r24, 0x41	; 65
- 1ce:	0e 94 18 01 	call	0x230	; 0x230 <UART_sendByte>
+ 1ce:	0e 94 17 01 	call	0x22e	; 0x22e <UART_sendByte>
  1d2:	c9 9b       	sbis	0x19, 1	; 25
  1d4:	09 c0       	rjmp	.+18     	; 0x1e8 <main+0x40>
  1d6:	83 e2       	ldi	r24, 0x23	; 35
@@ -245,7 +245,7 @@ Disassembly of section .text:
  1de:	00 c0       	rjmp	.+0      	; 0x1e0 <main+0x38>
  1e0:	00 00       	nop
  1e2:	82 e4       	ldi	r24, 0x42	; 66
- 1e4:	0e 94 18 01 	call	0x230	; 0x230 <UART_sendByte>
+ 1e4:	0e 94 17 01 	call	0x22e	; 0x22e <UART_sendByte>
  1e8:	ca 9b       	sbis	0x19, 2	; 25
  1ea:	e8 cf       	rjmp	.-48     	; 0x1bc <main+0x14>
  1ec:	83 e2       	ldi	r24, 0x23	; 35
@@ -255,11 +255,11 @@ Disassembly of section .text:
  1f4:	00 c0       	rjmp	.+0      	; 0x1f6 <main+0x4e>
  1f6:	00 00       	nop
  1f8:	87 e4       	ldi	r24, 0x47	; 71
- 1fa:	0e 94 18 01 	call	0x230	; 0x230 <UART_sendByte>
- 1fe:	0e 94 1e 01 	call	0x23c	; 0x23c <UART_recieveByte>
- 202:	80 33       	cpi	r24, 0x30	; 48
+ 1fa:	0e 94 17 01 	call	0x22e	; 0x22e <UART_sendByte>
+ 1fe:	0e 94 1d 01 	call	0x23a	; 0x23a <UART_recieveByte>
+ 202:	88 23       	and	r24, r24
  204:	21 f0       	breq	.+8      	; 0x20e <main+0x66>
- 206:	81 33       	cpi	r24, 0x31	; 49
+ 206:	81 30       	cpi	r24, 0x01	; 1
  208:	c9 f6       	brne	.-78     	; 0x1bc <main+0x14>
  20a:	a8 9a       	sbi	0x15, 0	; 21
  20c:	d7 cf       	rjmp	.-82     	; 0x1bc <main+0x14>
@@ -268,88 +268,89 @@ Disassembly of section .text:
 
 00000212 <UART_init>:
  212:	59 9a       	sbi	0x0b, 1	; 11
- 214:	54 9a       	sbi	0x0a, 4	; 10
- 216:	80 b5       	in	r24, 0x20	; 32
- 218:	80 68       	ori	r24, 0x80	; 128
- 21a:	80 bd       	out	0x20, r24	; 32
- 21c:	80 b5       	in	r24, 0x20	; 32
- 21e:	82 60       	ori	r24, 0x02	; 2
- 220:	80 bd       	out	0x20, r24	; 32
- 222:	80 b5       	in	r24, 0x20	; 32
- 224:	84 60       	ori	r24, 0x04	; 4
- 226:	80 bd       	out	0x20, r24	; 32
- 228:	10 bc       	out	0x20, r1	; 32
- 22a:	8c e0       	ldi	r24, 0x0C	; 12
- 22c:	89 b9       	out	0x09, r24	; 9
- 22e:	08 95       	ret
+ 214:	80 b5       	in	r24, 0x20	; 32
+ 216:	80 68       	ori	r24, 0x80	; 128
+ 218:	80 bd       	out	0x20, r24	; 32
+ 21a:	80 b5       	in	r24, 0x20	; 32
+ 21c:	82 60       	ori	r24, 0x02	; 2
+ 21e:	80 bd       	out	0x20, r24	; 32
+ 220:	80 b5       	in	r24, 0x20	; 32
+ 222:	84 60       	ori	r24, 0x04	; 4
+ 224:	80 bd       	out	0x20, r24	; 32
+ 226:	10 bc       	out	0x20, r1	; 32
+ 228:	8c e0       	ldi	r24, 0x0C	; 12
+ 22a:	89 b9       	out	0x09, r24	; 9
+ 22c:	08 95       	ret
 
-00000230 <UART_sendByte>:
- 230:	5d 9b       	sbis	0x0b, 5	; 11
- 232:	fe cf       	rjmp	.-4      	; 0x230 <UART_sendByte>
- 234:	53 9a       	sbi	0x0a, 3	; 10
- 236:	8c b9       	out	0x0c, r24	; 12
- 238:	53 98       	cbi	0x0a, 3	; 10
- 23a:	08 95       	ret
+0000022e <UART_sendByte>:
+ 22e:	5d 9b       	sbis	0x0b, 5	; 11
+ 230:	fe cf       	rjmp	.-4      	; 0x22e <UART_sendByte>
+ 232:	53 9a       	sbi	0x0a, 3	; 10
+ 234:	8c b9       	out	0x0c, r24	; 12
+ 236:	53 98       	cbi	0x0a, 3	; 10
+ 238:	08 95       	ret
 
-0000023c <UART_recieveByte>:
+0000023a <UART_recieveByte>:
+ 23a:	54 9a       	sbi	0x0a, 4	; 10
  23c:	5f 9b       	sbis	0x0b, 7	; 11
- 23e:	fe cf       	rjmp	.-4      	; 0x23c <UART_recieveByte>
- 240:	8c b1       	in	r24, 0x0c	; 12
- 242:	08 95       	ret
+ 23e:	fe cf       	rjmp	.-4      	; 0x23c <UART_recieveByte+0x2>
+ 240:	54 98       	cbi	0x0a, 4	; 10
+ 242:	8c b1       	in	r24, 0x0c	; 12
+ 244:	08 95       	ret
 
-00000244 <UART_sendString>:
- 244:	1f 93       	push	r17
- 246:	cf 93       	push	r28
- 248:	df 93       	push	r29
- 24a:	ec 01       	movw	r28, r24
- 24c:	10 e0       	ldi	r17, 0x00	; 0
- 24e:	fe 01       	movw	r30, r28
- 250:	e1 0f       	add	r30, r17
- 252:	f1 1d       	adc	r31, r1
- 254:	80 81       	ld	r24, Z
- 256:	88 23       	and	r24, r24
- 258:	21 f0       	breq	.+8      	; 0x262 <UART_sendString+0x1e>
- 25a:	0e 94 18 01 	call	0x230	; 0x230 <UART_sendByte>
- 25e:	1f 5f       	subi	r17, 0xFF	; 255
- 260:	f6 cf       	rjmp	.-20     	; 0x24e <UART_sendString+0xa>
- 262:	df 91       	pop	r29
- 264:	cf 91       	pop	r28
- 266:	1f 91       	pop	r17
- 268:	08 95       	ret
+00000246 <UART_sendString>:
+ 246:	1f 93       	push	r17
+ 248:	cf 93       	push	r28
+ 24a:	df 93       	push	r29
+ 24c:	ec 01       	movw	r28, r24
+ 24e:	10 e0       	ldi	r17, 0x00	; 0
+ 250:	fe 01       	movw	r30, r28
+ 252:	e1 0f       	add	r30, r17
+ 254:	f1 1d       	adc	r31, r1
+ 256:	80 81       	ld	r24, Z
+ 258:	88 23       	and	r24, r24
+ 25a:	21 f0       	breq	.+8      	; 0x264 <UART_sendString+0x1e>
+ 25c:	0e 94 17 01 	call	0x22e	; 0x22e <UART_sendByte>
+ 260:	1f 5f       	subi	r17, 0xFF	; 255
+ 262:	f6 cf       	rjmp	.-20     	; 0x250 <UART_sendString+0xa>
+ 264:	df 91       	pop	r29
+ 266:	cf 91       	pop	r28
+ 268:	1f 91       	pop	r17
+ 26a:	08 95       	ret
 
-0000026a <UART_receiveString>:
- 26a:	ff 92       	push	r15
- 26c:	0f 93       	push	r16
- 26e:	1f 93       	push	r17
- 270:	cf 93       	push	r28
- 272:	df 93       	push	r29
- 274:	ec 01       	movw	r28, r24
- 276:	0e 94 1e 01 	call	0x23c	; 0x23c <UART_recieveByte>
- 27a:	88 83       	st	Y, r24
- 27c:	f1 2c       	mov	r15, r1
- 27e:	fe 01       	movw	r30, r28
- 280:	ef 0d       	add	r30, r15
- 282:	f1 1d       	adc	r31, r1
- 284:	80 81       	ld	r24, Z
- 286:	83 32       	cpi	r24, 0x23	; 35
- 288:	49 f0       	breq	.+18     	; 0x29c <UART_receiveString+0x32>
- 28a:	f3 94       	inc	r15
- 28c:	8e 01       	movw	r16, r28
- 28e:	0f 0d       	add	r16, r15
- 290:	11 1d       	adc	r17, r1
- 292:	0e 94 1e 01 	call	0x23c	; 0x23c <UART_recieveByte>
- 296:	f8 01       	movw	r30, r16
- 298:	80 83       	st	Z, r24
- 29a:	f1 cf       	rjmp	.-30     	; 0x27e <UART_receiveString+0x14>
- 29c:	df 91       	pop	r29
- 29e:	cf 91       	pop	r28
- 2a0:	1f 91       	pop	r17
- 2a2:	0f 91       	pop	r16
- 2a4:	ff 90       	pop	r15
- 2a6:	08 95       	ret
+0000026c <UART_receiveString>:
+ 26c:	ff 92       	push	r15
+ 26e:	0f 93       	push	r16
+ 270:	1f 93       	push	r17
+ 272:	cf 93       	push	r28
+ 274:	df 93       	push	r29
+ 276:	ec 01       	movw	r28, r24
+ 278:	0e 94 1d 01 	call	0x23a	; 0x23a <UART_recieveByte>
+ 27c:	88 83       	st	Y, r24
+ 27e:	f1 2c       	mov	r15, r1
+ 280:	fe 01       	movw	r30, r28
+ 282:	ef 0d       	add	r30, r15
+ 284:	f1 1d       	adc	r31, r1
+ 286:	80 81       	ld	r24, Z
+ 288:	83 32       	cpi	r24, 0x23	; 35
+ 28a:	49 f0       	breq	.+18     	; 0x29e <UART_receiveString+0x32>
+ 28c:	f3 94       	inc	r15
+ 28e:	8e 01       	movw	r16, r28
+ 290:	0f 0d       	add	r16, r15
+ 292:	11 1d       	adc	r17, r1
+ 294:	0e 94 1d 01 	call	0x23a	; 0x23a <UART_recieveByte>
+ 298:	f8 01       	movw	r30, r16
+ 29a:	80 83       	st	Z, r24
+ 29c:	f1 cf       	rjmp	.-30     	; 0x280 <UART_receiveString+0x14>
+ 29e:	df 91       	pop	r29
+ 2a0:	cf 91       	pop	r28
+ 2a2:	1f 91       	pop	r17
+ 2a4:	0f 91       	pop	r16
+ 2a6:	ff 90       	pop	r15
+ 2a8:	08 95       	ret
 
-000002a8 <_exit>:
- 2a8:	f8 94       	cli
+000002aa <_exit>:
+ 2aa:	f8 94       	cli
 
-000002aa <__stop_program>:
- 2aa:	ff cf       	rjmp	.-2      	; 0x2aa <__stop_program>
+000002ac <__stop_program>:
+ 2ac:	ff cf       	rjmp	.-2      	; 0x2ac <__stop_program>
